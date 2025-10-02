@@ -75,6 +75,11 @@ class Im_Invisible_Can_You_See_Me {
 			)
 		) );
 
+		if ( is_wp_error( $verify ) ) {
+			$bp->signup->errors['signup_username'] = esc_html__( 'Something went wrong when verifying the spam prevention response', 'bp-invisible-recaptcha' );
+			return;
+		}
+
 		$verify = json_decode( $verify['body'] );
 
 		if ( ! isset( $verify->success ) ) {
