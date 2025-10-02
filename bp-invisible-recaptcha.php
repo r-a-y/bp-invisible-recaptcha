@@ -65,7 +65,7 @@ class Im_Invisible_Can_You_See_Me {
 		$bp = buddypress();
 
 		if ( empty( $_POST['g-recaptcha-response'] ) ) {
-			$bp->signup->errors['signup_password_confirm'] = esc_html__( 'Please turn on javascript to register for an account', 'bp-invisible-recaptcha' );
+			$bp->signup->errors['signup_username'] = esc_html__( 'Please turn on javascript to register for an account', 'bp-invisible-recaptcha' );
 		}
 
 		$verify = wp_remote_post( 'https://www.google.com/recaptcha/api/siteverify', array(
@@ -78,11 +78,11 @@ class Im_Invisible_Can_You_See_Me {
 		$verify = json_decode( $verify['body'] );
 
 		if ( ! isset( $verify->success ) ) {
-			$bp->signup->errors['signup_password_confirm'] = esc_html__( 'Something went wrong when verifying the spam prevention response', 'bp-invisible-recaptcha' );
+			$bp->signup->errors['signup_username'] = esc_html__( 'Something went wrong when verifying the spam prevention response', 'bp-invisible-recaptcha' );
 		}
 
 		if ( false === $verify->success ) {
-			$bp->signup->errors['signup_password_confirm'] = esc_html__( 'You did not pass our spam prevention check', 'bp-invisible-recaptcha' );
+			$bp->signup->errors['signup_username'] = esc_html__( 'You did not pass our spam prevention check', 'bp-invisible-recaptcha' );
 		}
 	}
 
